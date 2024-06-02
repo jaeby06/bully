@@ -1,7 +1,8 @@
-import { Button, Container, Grid, Paper, TextField, Typography, } from "@mui/material";
+import { Button, Container, Grid, Paper, TextField, Typography, Box } from "@mui/material";
 import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, } from "react-router-dom";
+import supabase from "../Client"
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -35,6 +36,25 @@ export default function Login() {
     const [password, setPassword] = useState('');
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
+    const [errormessage, setErrorMessage] = useState('')
+
+    const login = async (e) => {
+        e.preventDefault();
+        try {
+            const { user, error } = await supabase.auth.signInWithPassword({
+                email: email,
+                password: password,
+            });
+
+            if (error) {
+                setErrorMessage('Invalid Credintials');
+            } else {
+                window.location.href = '/Dashboard';
+            }
+        } catch (error) {
+            setErrorMessage(error.message);
+        }
+    };
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value)
@@ -67,14 +87,17 @@ export default function Login() {
                 <Typography variant="h4" align="center" gutterBottom>
                     Login
                 </Typography>
+                {!errormessage && (
+                    <Typography className={classes.error}>
+                        {errormessage}
+                    </Typography>
+                )}
                 <form className={classes.form}>
                     <TextField label='Email' variant="outlined" fullWidth value={email} onChange={handleEmailChange} error={Boolean(emailError)} helperText={emailError} />
                     <TextField label='Password' variant="outlined" fullWidth value={password} onChange={handlePasswordChange} error={Boolean(passwordError)} helperText={passwordError} />
-                    <Link to='/dashboard' className={classes.link}>
-                        <Button className={classes.submit} variant="contained" color="primary" type="submit" fullWidth>
-                            Login
-                        </Button>
-                    </Link>
+                    <Button className={classes.submit} variant="contained" color="primary" type="submit" fullWidth onClick={login}>
+                        Login
+                    </Button>
                 </form>
                 <Grid container justifyContent="center">
                     <Grid item>

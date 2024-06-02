@@ -1,7 +1,8 @@
-import { Button, Container, Grid, Paper, TextField, Typography, } from "@mui/material";
+import { Button, Container, Grid, Paper, TextField, Typography, Box } from "@mui/material";
 import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
+import supabase from "../Client";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -37,6 +38,26 @@ export default function Signup() {
   const [passwordError, setPasswordError] = useState('');
   const [confirmpassword, setConfirmPassword] = useState('');
   const [confirmpasswordError, setConfirmPasswordError] = useState('');
+  const [signupError, setSignupError] = useState('');
+
+
+  const signup = async (e) => {
+    e.preventDefault();
+    try {
+      const { user, error } = await supabase.auth.signUp({
+        email: email,
+        password: password,
+      });
+
+      if (error) {
+        setSignupError('');
+      } else {
+        window.location.href = '/Login';
+      }
+    } catch (error) {
+      setSignupError(error.message);
+    }
+  };
 
 
 
@@ -77,8 +98,9 @@ export default function Signup() {
       setConfirmPasswordError('');
     }
   };
+  
   return (
-    <Container maxWidth='xs' backgroundcolor='primary.main'>
+    <Container maxWidth='xs' backgroundcolor='primary'>
       <Paper className={classes.paper} elevation={3} >
         <img className={classes.logo} src='/n1.gif' alt='logo' width='50' height='50' />
         <Typography variant="h4" align="center" gutterBottom>
@@ -88,11 +110,17 @@ export default function Signup() {
           <TextField label='Email' variant="outlined" fullWidth value={email} onChange={handleEmailChange} error={Boolean(emailError)} helperText={emailError} />
           <TextField label='Password' variant="outlined" fullWidth value={password} onChange={handlePasswordChange} error={Boolean(passwordError)} helperText={passwordError} />
           <TextField label='Confirm Password' variant="outlined" fullWidth value={confirmpassword} onChange={handleConfirmPasswordChange} error={Boolean(confirmpasswordError)} helperText={confirmpasswordError} />
-          <Link to='/login' className={classes.link}>
-            <Button className={classes.submit} variant="contained" color="primary" type="submit" fullWidth>
+            <Button className={classes.submit} variant="contained" color="primary" type="submit" fullWidth onClick={signup}>
               Sign up
             </Button>
-          </Link>
+            {
+                    !signupError &&
+                    <Box>
+                        <Typography color="secondary">
+                            {signupError}
+                        </Typography>
+                    </Box>
+                }
         </form>
         <Grid container justifyContent="center">
           <Grid item>

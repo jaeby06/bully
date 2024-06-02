@@ -15,6 +15,7 @@
     "@mui/core": "^5.0.0-alpha.54",
     "@mui/material": "^5.15.19",
     "@mui/styles": "^5.15.19",
+    "@supabase/supabase-js": "^2.43.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.23.1"
