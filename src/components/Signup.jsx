@@ -32,6 +32,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Signup() {
   const classes = useStyles();
+  const [name, setName] = useState('');
+  const [nameError, setnameError] = useState('');
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
@@ -47,6 +49,11 @@ export default function Signup() {
       const { user, error } = await supabase.auth.signUp({
         email: email,
         password: password,
+        options:{
+          data:{
+          first_name: name
+          }
+        }
       });
 
       if (error) {
@@ -59,7 +66,9 @@ export default function Signup() {
     }
   };
 
-
+  const handleNameChange = (e) => {
+    setName(e.target.value)
+  };
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value)
@@ -107,6 +116,7 @@ export default function Signup() {
           Sign up
         </Typography>
         <form className={classes.form}>
+          <TextField label='Name' variant="outlined" fullWidth value={name} onChange={handleNameChange} error={Boolean(nameError)} helperText={nameError} />
           <TextField label='Email' variant="outlined" fullWidth value={email} onChange={handleEmailChange} error={Boolean(emailError)} helperText={emailError} />
           <TextField label='Password' variant="outlined" fullWidth value={password} onChange={handlePasswordChange} error={Boolean(passwordError)} helperText={passwordError} />
           <TextField label='Confirm Password' variant="outlined" fullWidth value={confirmpassword} onChange={handleConfirmPasswordChange} error={Boolean(confirmpasswordError)} helperText={confirmpasswordError} />

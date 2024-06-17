@@ -10,12 +10,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@date-io/date-fns": "^3.0.0",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
+    "@material-ui/core": "^4.12.4",
     "@mui/core": "^5.0.0-alpha.54",
+    "@mui/lab": "^5.0.0-alpha.170",
     "@mui/material": "^5.15.19",
     "@mui/styles": "^5.15.19",
+    "@mui/x-date-pickers": "^7.6.2",
     "@supabase/supabase-js": "^2.43.4",
+    "date-fns": "^2.25.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.23.1"

@@ -11,6 +11,11 @@ export default function Dashboard() {
                     Dashboard
                 </Typography>
                 <img src='/n1.gif' alt='logo' width={800} height={600} />
+                <Link to='/Patients'>
+                    <Button variant="contained" color="primary" type="submit" fullWidth>
+                        Insert Patient
+                    </Button>
+                </Link>
                 <Link to='/login'>
                     <Button variant="contained" color="secondary" type="submit" fullWidth>
                         Logout
