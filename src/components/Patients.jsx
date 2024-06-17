@@ -111,6 +111,7 @@ function Patients() {
     return (
         <Container>
             <Grid item xs={12}>
+                <h2>New Next of Kin</h2>
                 <form onSubmit={handleSubmitNok}>
                     <Grid container spacing={2}>
                         <Grid item xs={6}>
@@ -176,6 +177,7 @@ function Patients() {
                 </form>
             </Grid>
             <Grid item xs={12}>
+            <h2>New Patient</h2>
                 <form onSubmit={handleSubmit}>
                     <Grid container spacing={2}>
                         <Grid item xs={6}>

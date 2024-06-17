@@ -8,7 +8,8 @@ import Dashboard from './components/Dashboard'
 import Patients from './components/Patients'
 import Appointments from './components/Appointments'
 import PatientsTable from './components/PatientsTable'
-
+import Staff from './components/Staff'
+import StaffTable from './components/StaffTable'
 function App() {
 
 
@@ -24,6 +25,8 @@ function App() {
           <Route path="/patients" Component={Patients} />
           <Route path="/appointments" Component={Appointments} />
           <Route path="/ptable" Component={PatientsTable} />
+          <Route path="/staff" Component={Staff} />
+          <Route path="/stable" Component={StaffTable} />
         </Routes>
       </Router>
     </div>

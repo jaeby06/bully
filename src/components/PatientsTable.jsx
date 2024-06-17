@@ -141,7 +141,7 @@ function PatientsTable() {
                 <Grid item>
                     <Link to='/patients'>
                         <Button variant="contained" color="primary" type="submit">
-                            Enter Patients
+                            New Patients
                         </Button>
                     </Link>
                 </Grid>
