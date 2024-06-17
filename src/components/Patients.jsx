@@ -19,6 +19,43 @@ function Patients() {
         doctor_id: "",
         clinic_id: "",
     });
+    const [nok, setNok] = useState({
+        first_name: "",
+        last_name: "",
+        address: "",
+        telephone_number: "",
+        relationship: "",
+    });
+    
+    console.log(nok);
+
+    const handleChangeNok = (event) => {
+        setNok({ ...nok, [event.target.name]: event.target.value });
+    };
+
+    const handleSubmitNok = async (event) => {
+        event.preventDefault();
+        try {
+            const { data, error } = await supabase
+                .from("noks")
+                .insert([nok])
+                .single();
+            if (error) {
+                console.error(error);
+            } else {
+                console.log(data);
+                setNok({
+                    first_name: "",
+                    last_name: "",
+                    address: "",
+                    telephone_number: "",
+                    relationship: "",
+                });
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     console.log(patients);
 
@@ -69,66 +106,64 @@ function Patients() {
         setPatient({ ...patient, [event.target.name]: event.target.value });
     };
 
-    const handleDelete = async (id) => {
-        try {
-            const { error } = await supabase
-                .from("patients")
-                .delete()
-                .eq("patient_number", id);
-            if (error) {
-                console.error(error);
-            } else {
-                fetchPatients(); // fetch patients again to update the table
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
     return (
         <Container>
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Patient Number</TableCell>
-                        <TableCell>First Name</TableCell>
-                        <TableCell>Last Name</TableCell>
-                        <TableCell>Address</TableCell>
-                        <TableCell>Telephone Number</TableCell>
-                        <TableCell>Date of Birth</TableCell>
-                        <TableCell>Sex</TableCell>
-                        <TableCell>Marital Status</TableCell>
-                        <TableCell>Date Registered</TableCell>
-                        <TableCell>NOK ID</TableCell>
-                        <TableCell>Doctor ID</TableCell>
-                        <TableCell>Clinic ID</TableCell>
-                        <TableCell>Action</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {patients.map((patient, index) => (
-                        <TableRow key={`row-${index}`}>
-                            <TableCell>{patient.patient_number}</TableCell>
-                            <TableCell>{patient.first_name}</TableCell>
-                            <TableCell>{patient.last_name}</TableCell>
-                            <TableCell>{patient.address}</TableCell>
-                            <TableCell>{patient.telephone_number}</TableCell>
-                            <TableCell>{patient.date_of_birth}</TableCell>
-                            <TableCell>{patient.sex}</TableCell>
-                            <TableCell>{patient.marital_status}</TableCell>
-                            <TableCell>{patient.date_registered}</TableCell>
-                            <TableCell>{patient.nok_id}</TableCell>
-                            <TableCell>{patient.doctor_id}</TableCell>
-                            <TableCell>{patient.clinic_id}</TableCell>
-                            <TableCell>
-                                <Button variant="contained" color="error" onClick={() => handleDelete(patient.patient_number)}>
-                                    Delete
-                                </Button>
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+             <Grid item xs={12}>
+                <form onSubmit={handleSubmitNok}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={6}>
+                            <TextField
+                                label="NOK First Name"
+                                name="first_name"
+                                value={nok.first_name}
+                                onChange={handleChangeNok}
+                                fullWidth
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField
+                                label="NOK Last Name"
+                                name="last_name"
+                                value={nok.last_name}
+                                onChange={handleChangeNok}
+                                fullWidth
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField
+                                label="NOK Address"
+                                name="address"
+                                value={nok.address}
+                                onChange={handleChangeNok}
+                                fullWidth
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField
+                                label="NOK Telephone Number"
+                                name="telephone_number"
+                                value={nok.telephone_number}
+                                onChange={handleChangeNok}
+                                fullWidth
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField
+                                label="NOK Relationship"
+                                name="relationship"
+                                value={nok.relationship}
+                                onChange={handleChangeNok}
+                                fullWidth
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Button type="submit" variant="contained" color="primary">
+                                Add NOK
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </form>
+            </Grid>
             <Grid item xs={12}>
                 <form onSubmit={handleSubmit}>
                     <Grid container spacing={2}>
@@ -253,6 +288,13 @@ function Patients() {
                     <Link to='/dashboard'>
                         <Button variant="contained" color="primary" type="submit">
                             Back to Dashboard
+                        </Button>
+                    </Link>
+                </Grid>
+                <Grid item>
+                    <Link to='/ptable'>
+                        <Button variant="contained" color="primary" type="submit">
+                            Check Patients
                         </Button>
                     </Link>
                 </Grid>

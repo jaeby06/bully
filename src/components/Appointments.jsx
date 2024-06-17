@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import supabase from "../Client";
 
 function Appointments() {
-    const [appointments, setAppointments] = useState([]);
     const [appointment, setAppointment] = useState({
         appointment_number: "",
         patient_number: "",
@@ -12,19 +11,6 @@ function Appointments() {
         date_and_time: "",
         examination_room: "",
     });
-
-    console.log(appointments);
-
-    useEffect(() => {
-        fetchAppointments();
-    }, []);
-
-    async function fetchAppointments() {
-        const { data } = await supabase
-            .from("appointments")
-            .select("*");
-        setAppointments(data);
-    }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -73,34 +59,6 @@ function Appointments() {
 
     return (
         <Container>
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Appointment Number</TableCell>
-                        <TableCell>Patient Number</TableCell>
-                        <TableCell>Staff Number</TableCell>
-                        <TableCell>Date and Time</TableCell>
-                        <TableCell>Examination Room</TableCell>
-                        <TableCell>Action</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {appointments.map((appointment, index) => (
-                        <TableRow key={`row-${index}`}>
-                            <TableCell>{appointment.appointment_number}</TableCell>
-                            <TableCell>{appointment.patient_number}</TableCell>
-                            <TableCell>{appointment.staff_number}</TableCell>
-                            <TableCell>{appointment.date_and_time}</TableCell>
-                            <TableCell>{appointment.examination_room}</TableCell>
-                            <TableCell>
-                                <Button variant="contained" color="error" onClick={() => handleDelete(appointment.appointment_number)}>
-                                    Delete
-                                </Button>
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
             <Grid item xs={12}>
                 <form onSubmit={handleSubmit}>
                     <Grid container spacing={2}>

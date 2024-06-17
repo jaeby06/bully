@@ -7,6 +7,7 @@ import Header from './components/Header'
 import Dashboard from './components/Dashboard'
 import Patients from './components/Patients'
 import Appointments from './components/Appointments'
+import PatientsTable from './components/PatientsTable'
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
           <Route path="/dashboard" Component={Dashboard} />
           <Route path="/patients" Component={Patients} />
           <Route path="/appointments" Component={Appointments} />
+          <Route path="/ptable" Component={PatientsTable} />
         </Routes>
       </Router>
     </div>

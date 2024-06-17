@@ -13,7 +13,7 @@ export default function Header() {
   return (
     <AppBar position='static'>
         <Toolbar>
-            <h1 className={classes.title}>Pilapil</h1>
+            <h1 className={classes.title}>WellMeadows Hospital</h1>
         </Toolbar>
     </AppBar>
   )
