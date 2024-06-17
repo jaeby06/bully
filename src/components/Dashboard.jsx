@@ -64,6 +64,29 @@ export default function Dashboard() {
                     ))}
                 </TableBody>
             </Table>
+            <Grid container justifyContent="space-between" sx={{ mt: 2 }}>
+                <Grid item>
+                    <Link to='/patients'>
+                        <Button variant="contained" color="primary" type="submit">
+                            Enter Patients
+                        </Button>
+                    </Link>
+                </Grid>
+                <Grid item>
+                    <Link to='/ptable'>
+                        <Button variant="contained" color="primary" type="submit">
+                            Check Patients
+                        </Button>
+                    </Link>
+                </Grid>
+                <Grid item>
+                    <Link to='/appointment'>
+                        <Button variant="contained" color="primary" type="submit">
+                            Make Appointments
+                        </Button>
+                    </Link>
+                </Grid>
+            </Grid>
             </Container>
     )
 }

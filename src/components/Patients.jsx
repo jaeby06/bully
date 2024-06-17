@@ -20,13 +20,14 @@ function Patients() {
         clinic_id: "",
     });
     const [nok, setNok] = useState({
+        nok_id: "",
         first_name: "",
         last_name: "",
         address: "",
         telephone_number: "",
         relationship: "",
     });
-    
+
     console.log(nok);
 
     const handleChangeNok = (event) => {
@@ -45,6 +46,7 @@ function Patients() {
             } else {
                 console.log(data);
                 setNok({
+                    nok_id: "",
                     first_name: "",
                     last_name: "",
                     address: "",
@@ -108,9 +110,18 @@ function Patients() {
 
     return (
         <Container>
-             <Grid item xs={12}>
+            <Grid item xs={12}>
                 <form onSubmit={handleSubmitNok}>
                     <Grid container spacing={2}>
+                        <Grid item xs={6}>
+                            <TextField
+                                label="NOK ID"
+                                name="nok_id"
+                                value={patient.nok_id}
+                                onChange={handleChange}
+                                fullWidth
+                            />
+                        </Grid>
                         <Grid item xs={6}>
                             <TextField
                                 label="NOK First Name"
