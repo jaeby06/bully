@@ -1,6 +1,7 @@
-import { Grid, Container, Table, TableHead, TableRow, TableCell, TableBody, Button, Link, Typography } from "@mui/material";
+import { Grid, Container, Table, TableHead, TableRow, TableCell, TableBody, Button, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import supabase from "../Client";
+import { Link } from "react-router-dom";
 
 function InPatientsTable() {
   const [inPatients, setInPatients] = useState([]);
@@ -16,7 +17,7 @@ function InPatientsTable() {
 
   const handleDelete = async (id) => {
     try {
-      const { error } = await supabase.from("in_patients").delete().eq("In_Patient_Number", id);
+      const { error } = await supabase.from("in_patients").delete().eq("in_patient_number", id);
       if (error) {
         console.error(error);
       } else {
@@ -57,7 +58,7 @@ function InPatientsTable() {
               <TableCell>{inPatient.date_expected_to_leave_ward}</TableCell>
               <TableCell>{inPatient.actual_date_left_ward}</TableCell>
               <TableCell>
-                <Button variant="contained" color="error" onClick={() => handleDelete(inPatient.In_Patient_Number)}>
+                <Button variant="contained" color="error" onClick={() => handleDelete(inPatient.in_patient_number)}>
                   Delete
                 </Button>
               </TableCell>
@@ -65,25 +66,11 @@ function InPatientsTable() {
           ))}
         </TableBody>
       </Table>
-      <Grid container justifyContent="space-between" sx={{ mt: 2 }}>
-        <Grid item>
-          <Link to='/dashboard'>
-            <Button variant="contained" color="primary" type="submit">
-              Back to Dashboard
-            </Button>
-          </Link>
-        </Grid>
+      <Grid container justifyContent="center" sx={{ mt: 2 }}>
         <Grid item>
           <Link to='/inpatients'>
             <Button variant="contained" color="primary" type="submit">
               New In Patient
-            </Button>
-          </Link>
-        </Grid>
-        <Grid item>
-          <Link to='/appointments'>
-            <Button variant="contained" color="primary" type="submit">
-              Go to Appointment
             </Button>
           </Link>
         </Grid>

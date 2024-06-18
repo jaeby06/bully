@@ -18,6 +18,8 @@ import SupplyTable from './components/SupplyTable'
 import InPatientsTable from './components/InPatientsTable'
 import OutPatients from './components/OutPatients'
 import OutPatientsTable from './components/OutPatientsTable'
+import MedicationTable from './components/MedicationTable'
+import Medication from './components/Medication'
 
 
 function App() {
@@ -70,6 +72,12 @@ function App() {
               <Nok />
             </>
           } />
+           <Route path="/medication" element={
+            <>
+              <Header />
+              <Medication />
+            </>
+          } />
           <Route path="/requisition" element={
             <>
               <Header />
@@ -110,6 +118,12 @@ function App() {
             <>
               <Header />
               <OutPatientsTable />
+            </>
+          } />
+          <Route path="/mtable" element={
+            <>
+              <Header />
+              <MedicationTable />
             </>
           } />
         </Routes>

@@ -37,6 +37,11 @@ export const mainLists = (
         </Link>
         </ListItem>
         <ListItem button>
+        <Link to='/medication'>
+            <ListItemText primary="New Medication" />
+        </Link>
+        </ListItem>
+        <ListItem button>
         <Link to='/requisition'>
             <ListItemText primary="Requisitions" />
         </Link>
@@ -69,6 +74,11 @@ export const mainLists = (
         <ListItem button>
         <Link to='/ptable'>
             <ListItemText primary="Patients Table" />
+        </Link>
+        </ListItem>
+        <ListItem button>
+        <Link to='/mtable'>
+            <ListItemText primary="Medication Table" />
         </Link>
         </ListItem>
     </List>
