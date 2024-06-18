@@ -10,9 +10,9 @@ function Requisitions() {
         supplier_id: "",
         ward_number: "",
         requisition_date: "",
-        non_surgical_item_no: "",
-        surgical_item_no: "",
-        pharmaceutical_drug_no: "",
+        item_no: "",
+        item_no: "",
+        drug_no: "",
         item_description: "",
         quantity: "",
         unit_price: "",
@@ -48,9 +48,9 @@ function Requisitions() {
                     supplier_id: "",
                     ward_number: "",
                     requisition_date: "",
-                    non_surgical_item_no: "",
-                    surgical_item_no: "",
-                    pharmaceutical_drug_no: "",
+                    item_no: "",
+                    item_no: "",
+                    drug_no: "",
                     item_description: "",
                     quantity: "",
                     unit_price: "",
@@ -66,16 +66,16 @@ function Requisitions() {
     const handleChange = (event) => {
         const { name, value } = event.target;
         if (name === "Quantity" || name === "Unit_Price") {
-          const newValue = parseFloat(value);
-          const newTotalPrice = name === "Quantity"? newValue * requisition.Unit_Price : requisition.Quantity * newValue;
-          setRequisition({...requisition, [name]: newValue, Total_Price: newTotalPrice });
+            const newValue = parseFloat(value);
+            const newTotalPrice = name === "Quantity" ? newValue * requisition.Unit_Price : requisition.Quantity * newValue;
+            setRequisition({ ...requisition, [name]: newValue, Total_Price: newTotalPrice });
         } else {
-          setRequisition({...requisition, [name]: value });
+            setRequisition({ ...requisition, [name]: value });
         }
-      };
+    };
 
     return (
-        <Container>
+        <Container maxWidth='false' style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <Grid item xs={12}>
                 <h2>New Requisition</h2>
                 <form onSubmit={handleSubmit}>
@@ -83,8 +83,8 @@ function Requisitions() {
                         <Grid item xs={6}>
                             <TextField
                                 label="Requisition ID"
-                                name="Requisition_ID"
-                                value={requisition.Requisition_ID}
+                                name="requisition_id"
+                                value={requisition.requisition_id}
                                 onChange={handleChange}
                                 fullWidth
                             />
@@ -92,8 +92,8 @@ function Requisitions() {
                         <Grid item xs={6}>
                             <TextField
                                 label="Supplier ID"
-                                name="Supplier_ID"
-                                value={requisition.Supplier_ID}
+                                name="supplier_id"
+                                value={requisition.supplier_id}
                                 onChange={handleChange}
                                 fullWidth
                             />
@@ -101,8 +101,8 @@ function Requisitions() {
                         <Grid item xs={6}>
                             <TextField
                                 label="Ward Number"
-                                name="Ward_Number"
-                                value={requisition.Ward_Number}
+                                name="ward_number"
+                                value={requisition.ward_number}
                                 onChange={handleChange}
                                 fullWidth
                             />
@@ -110,8 +110,8 @@ function Requisitions() {
                         <Grid item xs={6}>
                             <TextField
                                 label="Requisition Date"
-                                name="Requisition_Date"
-                                value={requisition.Requisition_Date}
+                                name="requisition_date"
+                                value={requisition.requisition_date}
                                 onChange={handleChange}
                                 fullWidth
                             />
@@ -119,8 +119,8 @@ function Requisitions() {
                         <Grid item xs={6}>
                             <TextField
                                 label="Non Surgical Item No"
-                                name="Non_Surgical_Item_No"
-                                value={requisition.Non_Surgical_Item_No}
+                                name="item_no"
+                                value={requisition.item_no}
                                 onChange={handleChange}
                                 fullWidth
                             />
@@ -128,8 +128,8 @@ function Requisitions() {
                         <Grid item xs={6}>
                             <TextField
                                 label="Surgical Item No"
-                                name="Surgical_Item_No"
-                                value={requisition.Surgical_Item_No}
+                                name="item_no"
+                                value={requisition.item_no}
                                 onChange={handleChange}
                                 fullWidth
                             />
@@ -137,8 +137,8 @@ function Requisitions() {
                         <Grid item xs={6}>
                             <TextField
                                 label="Pharmaceutical Drug No"
-                                name="Pharmaceutical_Drug_No"
-                                value={requisition.Pharmaceutical_Drug_No}
+                                name="drug_no"
+                                value={requisition.drug_no}
                                 onChange={handleChange}
                                 fullWidth
                             />
@@ -146,8 +146,8 @@ function Requisitions() {
                         <Grid item xs={6}>
                             <TextField
                                 label="Item Description"
-                                name="Item_Description"
-                                value={requisition.Item_Description}
+                                name="item_description"
+                                value={requisition.item_description}
                                 onChange={handleChange}
                                 fullWidth
                             />
@@ -155,8 +155,8 @@ function Requisitions() {
                         <Grid item xs={6}>
                             <TextField
                                 label="Quantity"
-                                name="Quantity"
-                                value={requisition.Quantity}
+                                name="quantity"
+                                value={requisition.quantity}
                                 onChange={handleChange}
                                 fullWidth
                             />
@@ -164,21 +164,21 @@ function Requisitions() {
                         <Grid item xs={6}>
                             <TextField
                                 label="Unit Price"
-                                name="Unit_Price"
-                                value={requisition.Unit_Price}
+                                name="unit_price"
+                                value={requisition.unit_price}
                                 onChange={handleChange}
                                 fullWidth
                             />
                         </Grid>
                         <Grid item xs={6}>
-                                <TextField
-                                    label="Total Price"
-                                    name="Total_Price"
-                                    value={requisition.Total_Price}
-                                    fullWidth
-                                    disabled
-                                />
-                            </Grid>
+                            <TextField
+                                label="Total Price"
+                                name="total_price"
+                                value={requisition.total_price}
+                                fullWidth
+                                disabled
+                            />
+                        </Grid>
                         <Grid item xs={12}>
                             <Button variant="contained" color="primary" type="submit">
                                 Add Requisition
@@ -186,29 +186,6 @@ function Requisitions() {
                         </Grid>
                     </Grid>
                 </form>
-            </Grid>
-            <Grid container justifyContent="space-between" sx={{ mt: 2 }}>
-                <Grid item>
-                    <Link to='/dashboard'>
-                        <Button variant="contained" color="primary" type="submit">
-                            Back to Dashboard
-                        </Button>
-                    </Link>
-                </Grid>
-                <Grid item>
-                    <Link to='/rtable'>
-                        <Button variant="contained" color="primary" type="submit">
-                            Check Requisitions
-                        </Button>
-                    </Link>
-                </Grid>
-                <Grid item>
-                    <Link to='/appointments'>
-                        <Button variant="contained" color="primary" type="submit">
-                            Go to Appointment
-                        </Button>
-                    </Link>
-                </Grid>
             </Grid>
         </Container>
     );

@@ -28,7 +28,7 @@ function MedicationTable() {
   };
 
   return (
-    <Container>
+    <Container maxWidth='false' style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
       <h1>Medications</h1>
       <Table>
         <TableHead>

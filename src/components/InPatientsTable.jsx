@@ -29,7 +29,7 @@ function InPatientsTable() {
   };
 
   return (
-    <Container>
+    <Container maxWidth='false' style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
       <h1>In Patients</h1>
       <Table>
         <TableHead>

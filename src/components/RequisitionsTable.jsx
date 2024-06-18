@@ -11,7 +11,7 @@ function RequisitionsTable() {
 
     async function fetchRequisitions() {
         const { data } = await supabase
-           .from("Requisitions")
+           .from("requisitions")
            .select("*");
         setRequisitions(data);
     }
@@ -19,7 +19,7 @@ function RequisitionsTable() {
     const handleDelete = async (id) => {
         try {
             const { error } = await supabase
-               .from("Requisitions")
+               .from("requisitions")
                .delete()
                .eq("Requisition_ID", id);
             if (error) {
@@ -33,7 +33,7 @@ function RequisitionsTable() {
     };
 
     return (
-        <Container>
+        <Container maxWidth='false' style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <Table>
                 <TableHead>
                     <TableRow>
@@ -58,9 +58,9 @@ function RequisitionsTable() {
                             <TableCell>{requisition.supplier_id}</TableCell>
                             <TableCell>{requisition.ward_number}</TableCell>
                             <TableCell>{requisition.requisition_date}</TableCell>
-                            <TableCell>{requisition.non_surgical_item_no}</TableCell>
-                            <TableCell>{requisition.surgical_item_no}</TableCell>
-                            <TableCell>{requisition.pharmaceutical_drug_no}</TableCell>
+                            <TableCell>{requisition.item_no}</TableCell>
+                            <TableCell>{requisition.item_no}</TableCell>
+                            <TableCell>{requisition.drug_no}</TableCell>
                             <TableCell>{requisition.item_description}</TableCell>
                             <TableCell>{requisition.quantity}</TableCell>
                             <TableCell>{requisition.unit_price}</TableCell>
@@ -74,29 +74,6 @@ function RequisitionsTable() {
                     ))}
                 </TableBody>
             </Table>
-            <Grid container justifyContent="space-between" sx={{ mt: 2 }}>
-                <Grid item>
-                    <Link to='/dashboard'>
-                        <Button variant="contained" color="primary" type="submit">
-                            Back to Dashboard
-                        </Button>
-                    </Link>
-                </Grid>
-                <Grid item>
-                    <Link to='/requisitions'>
-                        <Button variant="contained" color="primary" type="submit">
-                            New Requisition
-                        </Button>
-                    </Link>
-                </Grid>
-                <Grid item>
-                    <Link to='/appointments'>
-                        <Button variant="contained" color="primary" type="submit">
-                            Go to Appointment
-                        </Button>
-                    </Link>
-                </Grid>
-            </Grid>
         </Container>
     );
 }

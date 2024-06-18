@@ -85,7 +85,7 @@ function InPatients() {
   };
 
   return (
-    <Container>
+    <Container maxWidth='false' style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
       <Grid item xs={12}>
         <h2>New In-Patient</h2>
         <form onSubmit={handleSubmit}>

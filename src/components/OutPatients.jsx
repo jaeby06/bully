@@ -55,7 +55,7 @@ function OutPatients() {
     };
 
     return (
-        <Container>
+        <Container maxWidth='false' style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <Grid item xs={12}>
                 <h2>New Out-Patient</h2>
                 <form onSubmit={handleSubmit}>
@@ -95,29 +95,6 @@ function OutPatients() {
                         </Grid>
                     </Grid>
                 </form>
-            </Grid>
-            <Grid container justifyContent="space-between" sx={{ mt: 2 }}>
-                <Grid item>
-                    <Link to='/dashboard'>
-                        <Button variant="contained" color="primary" type="submit">
-                            Back to Dashboard
-                        </Button>
-                    </Link>
-                </Grid>
-                <Grid item>
-                    <Link to='/patients'>
-                        <Button variant="contained" color="primary" type="submit">
-                            Check Patients
-                        </Button>
-                    </Link>
-                </Grid>
-                <Grid item>
-                    <Link to='/appointments'>
-                        <Button variant="contained" color="primary" type="submit">
-                            Go to Appointment
-                        </Button>
-                    </Link>
-                </Grid>
             </Grid>
         </Container>
     );
