@@ -10,6 +10,13 @@ import Appointments from './components/Appointments'
 import PatientsTable from './components/PatientsTable'
 import Staff from './components/Staff'
 import StaffTable from './components/StaffTable'
+import Nok from './components/Nok'
+import Requisitions from './components/Requisitions'
+import RequisitionsTable from './components/RequisitionsTable'
+import PharmaceuticalSupplyTable from './components/PharmaceuticalTable'
+import InPatients from './components/InPatients'
+
+
 function App() {
 
 
@@ -27,6 +34,11 @@ function App() {
           <Route path="/ptable" Component={PatientsTable} />
           <Route path="/staff" Component={Staff} />
           <Route path="/stable" Component={StaffTable} />
+          <Route path="/nok" Component={Nok} />
+          <Route path="/requisition" Component={Requisitions} />
+          <Route path="/rtable" Component={RequisitionsTable} />
+          <Route path="/phtable" Component={PharmaceuticalSupplyTable} />
+          <Route path="/inpatients" Component={InPatients} />
         </Routes>
       </Router>
     </div>

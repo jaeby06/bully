@@ -1,64 +1,62 @@
-import { Button, Grid, TextField, Container } from "@mui/material";
-import { useEffect, useState } from "react";
+import { Button, Grid, TextField, Container, Table, TableHead, TableRow, TableCell, TableBody, Paper } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import supabase from "../Client";
 
-function Patients() {
-    const [patients, setPatients] = useState([]);
-    const [patient, setPatient] = useState({
-        patient_number: "",
-        first_name: "",
-        last_name: "",
-        address: "",
-        telephone_number: "",
-        date_of_birth: "",
-        sex: "",
-        marital_status: "",
-        date_registered: "",
-        nok_id: "",
-        doctor_id: "",
-        clinic_id: "",
+function Requisitions() {
+    const [requisitions, setRequisitions] = useState([]);
+    const [requisition, setRequisition] = useState({
+        requisition_id: "",
+        supplier_id: "",
+        ward_number: "",
+        requisition_date: "",
+        non_surgical_item_no: "",
+        surgical_item_no: "",
+        pharmaceutical_drug_no: "",
+        item_description: "",
+        quantity: "",
+        unit_price: "",
+        total_price: "",
     });
 
-    console.log(patients);
+    console.log(requisitions);
 
     useEffect(() => {
-        fetchPatients();
+        fetchRequisitions();
     }, []);
 
-    async function fetchPatients() {
+    async function fetchRequisitions() {
         const { data } = await supabase
-            .from("patients")
+            .from("Requisitions")
             .select("*");
-        setPatients(data);
+        setRequisitions(data);
     }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
             const { data, error } = await supabase
-                .from("patients")
-                .insert([patient])
+                .from("Requisitions")
+                .insert([requisition])
                 .single();
             if (error) {
                 console.error(error);
             } else {
                 console.log(data);
-                setPatient({
-                    patient_number: "",
-                    first_name: "",
-                    last_name: "",
-                    address: "",
-                    telephone_number: "",
-                    date_of_birth: "",
-                    sex: "",
-                    marital_status: "",
-                    date_registered: "",
-                    nok_id: "",
-                    doctor_id: "",
-                    clinic_id: "",
+                setRequisition({
+                    requisition_id: "",
+                    supplier_id: "",
+                    ward_number: "",
+                    requisition_date: "",
+                    non_surgical_item_no: "",
+                    surgical_item_no: "",
+                    pharmaceutical_drug_no: "",
+                    item_description: "",
+                    quantity: "",
+                    unit_price: "",
+                    total_price: "",
                 });
-                fetchPatients(); // fetch patients again to update the table
+                fetchRequisitions(); // fetch requisitions again to update the table
             }
         } catch (error) {
             console.error(error);
@@ -66,126 +64,124 @@ function Patients() {
     };
 
     const handleChange = (event) => {
-        setPatient({ ...patient, [event.target.name]: event.target.value });
-    };
+        const { name, value } = event.target;
+        if (name === "Quantity" || name === "Unit_Price") {
+          const newValue = parseFloat(value);
+          const newTotalPrice = name === "Quantity"? newValue * requisition.Unit_Price : requisition.Quantity * newValue;
+          setRequisition({...requisition, [name]: newValue, Total_Price: newTotalPrice });
+        } else {
+          setRequisition({...requisition, [name]: value });
+        }
+      };
 
     return (
         <Container>
             <Grid item xs={12}>
-            <h2>New Patient</h2>
+                <h2>New Requisition</h2>
                 <form onSubmit={handleSubmit}>
                     <Grid container spacing={2}>
                         <Grid item xs={6}>
                             <TextField
-                                label="Patient Number"
-                                name="patient_number"
-                                value={patient.patient_number}
+                                label="Requisition ID"
+                                name="Requisition_ID"
+                                value={requisition.Requisition_ID}
                                 onChange={handleChange}
                                 fullWidth
                             />
                         </Grid>
                         <Grid item xs={6}>
                             <TextField
-                                label="First Name"
-                                name="first_name"
-                                value={patient.first_name}
+                                label="Supplier ID"
+                                name="Supplier_ID"
+                                value={requisition.Supplier_ID}
                                 onChange={handleChange}
                                 fullWidth
                             />
                         </Grid>
                         <Grid item xs={6}>
                             <TextField
-                                label="Last Name"
-                                name="last_name"
-                                value={patient.last_name}
+                                label="Ward Number"
+                                name="Ward_Number"
+                                value={requisition.Ward_Number}
                                 onChange={handleChange}
                                 fullWidth
                             />
                         </Grid>
                         <Grid item xs={6}>
                             <TextField
-                                label="Address"
-                                name="address"
-                                value={patient.address}
+                                label="Requisition Date"
+                                name="Requisition_Date"
+                                value={requisition.Requisition_Date}
                                 onChange={handleChange}
                                 fullWidth
                             />
                         </Grid>
                         <Grid item xs={6}>
                             <TextField
-                                label="Telephone Number"
-                                name="telephone_number"
-                                value={patient.telephone_number}
+                                label="Non Surgical Item No"
+                                name="Non_Surgical_Item_No"
+                                value={requisition.Non_Surgical_Item_No}
                                 onChange={handleChange}
                                 fullWidth
                             />
                         </Grid>
                         <Grid item xs={6}>
                             <TextField
-                                label="Date of Birth"
-                                name="date_of_birth"
-                                value={patient.date_of_birth}
+                                label="Surgical Item No"
+                                name="Surgical_Item_No"
+                                value={requisition.Surgical_Item_No}
                                 onChange={handleChange}
                                 fullWidth
                             />
                         </Grid>
                         <Grid item xs={6}>
                             <TextField
-                                label="Sex"
-                                name="sex"
-                                value={patient.sex}
+                                label="Pharmaceutical Drug No"
+                                name="Pharmaceutical_Drug_No"
+                                value={requisition.Pharmaceutical_Drug_No}
                                 onChange={handleChange}
                                 fullWidth
                             />
                         </Grid>
                         <Grid item xs={6}>
                             <TextField
-                                label="Marital Status"
-                                name="marital_status"
-                                value={patient.marital_status}
+                                label="Item Description"
+                                name="Item_Description"
+                                value={requisition.Item_Description}
                                 onChange={handleChange}
                                 fullWidth
                             />
                         </Grid>
                         <Grid item xs={6}>
                             <TextField
-                                label="Date Registered"
-                                name="date_registered"
-                                value={patient.date_registered}
+                                label="Quantity"
+                                name="Quantity"
+                                value={requisition.Quantity}
                                 onChange={handleChange}
                                 fullWidth
                             />
                         </Grid>
                         <Grid item xs={6}>
                             <TextField
-                                label="NOK ID"
-                                name="nok_id"
-                                value={patient.nok_id}
+                                label="Unit Price"
+                                name="Unit_Price"
+                                value={requisition.Unit_Price}
                                 onChange={handleChange}
                                 fullWidth
                             />
                         </Grid>
                         <Grid item xs={6}>
-                            <TextField
-                                label="Doctor ID"
-                                name="doctor_id"
-                                value={patient.doctor_id}
-                                onChange={handleChange}
-                                fullWidth
-                            />
-                        </Grid>
-                        <Grid item xs={6}>
-                            <TextField
-                                label="Clinic ID"
-                                name="clinic_id"
-                                value={patient.clinic_id}
-                                onChange={handleChange}
-                                fullWidth
-                            />
-                        </Grid>
+                                <TextField
+                                    label="Total Price"
+                                    name="Total_Price"
+                                    value={requisition.Total_Price}
+                                    fullWidth
+                                    disabled
+                                />
+                            </Grid>
                         <Grid item xs={12}>
-                            <Button type="submit" variant="contained" color="primary">
-                                Add Patient
+                            <Button variant="contained" color="primary" type="submit">
+                                Add Requisition
                             </Button>
                         </Grid>
                     </Grid>
@@ -200,9 +196,9 @@ function Patients() {
                     </Link>
                 </Grid>
                 <Grid item>
-                    <Link to='/ptable'>
+                    <Link to='/rtable'>
                         <Button variant="contained" color="primary" type="submit">
-                            Check Patients
+                            Check Requisitions
                         </Button>
                     </Link>
                 </Grid>
@@ -218,4 +214,4 @@ function Patients() {
     );
 }
 
-export default Patients;
+export default Requisitions;

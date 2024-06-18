@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import supabase from "../Client";
 
 function Staff() {
-    const [staff, setStaff] = useState({
+    const [staff, setStaff] = useState([]);
+    const [staffs, setStaffs] = useState({
         staff_number: "",
         last_name: "",
         first_name: "",
@@ -16,52 +17,36 @@ function Staff() {
         position_held: "",
         current_salary: "",
         salary_scale: "",
-        qualifications: [],
-        work_experience: [],
+        qualifications: "",
+        work_experience: "",
+        hours_per_week: "",
+        contract_type: "",
+        salary_payment: "",
     });
 
-    const [workExperience, setWorkExperience] = useState({
-        organization_name: "",
-        position: "",
-        start_date: "",
-        end_date: "",
-    });
+    useEffect(() => {
+        fetchStaff();
+    }, []);
 
-    const [qualification, setQualification] = useState({
-        qualification_type: "",
-        qualification_date: "",
-        institution_name: "",
-    });
-
-    const handleChange = (event) => {
-        setStaff({ ...staff, [event.target.name]: event.target.value });
-    };
-
-    const handleWorkExperienceChange = (event) => {
-        setWorkExperience({ ...workExperience, [event.target.name]: event.target.value });
-    };
-
-    const handleQualificationChange = (event) => {
-        setQualification({ ...qualification, [event.target.name]: event.target.value });
-    };
+    async function fetchStaff() {
+        const { data } = await supabase
+            .from("staff")
+            .select("*");
+        setStaff(data);
+    }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const staffData = {
-               ...staff,
-                work_experience: [workExperience],
-                qualifications: [qualification],
-            };
             const { data, error } = await supabase
-               .from("staff")
-               .insert([staffData])
-               .single();
+                .from("staff")
+                .insert([staffs])
+                .single();
             if (error) {
                 console.error(error);
             } else {
                 console.log(data);
-                setStaff({
+                setStaffs({
                     staff_number: "",
                     last_name: "",
                     first_name: "",
@@ -73,71 +58,21 @@ function Staff() {
                     position_held: "",
                     current_salary: "",
                     salary_scale: "",
-                    qualifications: [],
-                    work_experience: [],
+                    qualifications: "",
+                    work_experience: "",
+                    hours_per_week: "",
+                    contract_type: "",
+                    salary_payment: "",
                 });
-                setWorkExperience({
-                    organization_name: "",
-                    position: "",
-                    start_date: "",
-                    end_date: "",
-                });
-                setQualification({
-                    qualification_type: "",
-                    qualification_date: "",
-                    institution_name: "",
-                });
-                if (data) {
-                    await addWorkExperience(data.id);
-                    await addQualification(data.id);
-                }
+                fetchStaff(); // fetch staff again to update the table
             }
         } catch (error) {
             console.error(error);
         }
     };
 
-    const addWorkExperience = async (staffId) => {
-        try {
-            const { data, error } = await supabase
-                .from("work_experience")
-                .insert([{ staff_number: staffId, ...workexperience }])
-                .single();
-            if (error) {
-                console.error(error);
-            } else {
-                console.log(data);
-                setWorkExperience({
-                    organization_name: "",
-                    position: "",
-                    start_date: "",
-                    end_date: "",
-                });
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    const addQualification = async (staffId) => {
-        try {
-            const { data, error } = await supabase
-                .from("qualifications")
-                .insert([{ staff_number: staffId, ...qualification }])
-                .single();
-            if (error) {
-                console.error(error);
-            } else {
-                console.log(data);
-                setQualification({
-                    qualification_type: "",
-                    qualification_date: "",
-                    institution_name: "",
-                });
-            }
-        } catch (error) {
-            console.error(error);
-        }
+    const handleChange = (event) => {
+        setStaffs({ ...staffs, [event.target.name]: event.target.value });
     };
 
     return (
@@ -245,78 +180,50 @@ function Staff() {
                                 fullWidth
                             />
                         </Grid>
-                        <Grid item xs={12}>
-                            <h2>Work Experience</h2>
-                            <Grid container spacing={2}>
-                                <Grid item xs={6}>
-                                    <TextField
-                                        label="Organization Name"
-                                        name="organization_name"
-                                        value={workExperience.organization_name}
-                                        onChange={handleWorkExperienceChange}
-                                        fullWidth
-                                    />
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <TextField
-                                        label="Position"
-                                        name="position"
-                                        value={workExperience.position}
-                                        onChange={handleWorkExperienceChange}
-                                        fullWidth
-                                    />
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <TextField
-                                        label="Start Date"
-                                        name="start_date"
-                                        value={workExperience.start_date}
-                                        onChange={handleWorkExperienceChange}
-                                        fullWidth
-                                    />
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <TextField
-                                        label="End Date"
-                                        name="end_date"
-                                        value={workExperience.end_date}
-                                        onChange={handleWorkExperienceChange}
-                                        fullWidth
-                                    />
-                                </Grid>
-                            </Grid>
+                        <Grid item xs={6}>
+                            <TextField
+                                label="Qualification"
+                                name="qualifications"
+                                value={staff.qualifications}
+                                onChange={handleChange}
+                                fullWidth
+                            />
                         </Grid>
-                        <Grid item xs={12}>
-                            <h2>Qualifications</h2>
-                            <Grid container spacing={2}>
-                                <Grid item xs={6}>
-                                    <TextField
-                                        label="Qualification Type"
-                                        name="qualification_type"
-                                        value={qualification.qualification_type}
-                                        onChange={handleQualificationChange}
-                                        fullWidth
-                                    />
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <TextField
-                                        label="Qualification Date"
-                                        name="qualification_date"
-                                        value={qualification.qualification_date}
-                                        onChange={handleQualificationChange}
-                                        fullWidth
-                                    />
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <TextField
-                                        label="Institution Name"
-                                        name="institution_name"
-                                        value={qualification.institution_name}
-                                        onChange={handleQualificationChange}
-                                        fullWidth
-                                    />
-                                </Grid>
-                            </Grid>
+                        <Grid item xs={6}>
+                            <TextField
+                                label="Work Experience"
+                                name="work_experience"
+                                value={staff.work_experience}
+                                onChange={handleChange}
+                                fullWidth
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField
+                                label="Hours per Week"
+                                name="hours_per_week"
+                                value={staff.hours_per_week}
+                                onChange={handleChange}
+                                fullWidth
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField
+                                label="Contract Type"
+                                name="contract_type"
+                                value={staff.contract_type}
+                                onChange={handleChange}
+                                fullWidth
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField
+                                label="Salary Payment"
+                                name="salary_payment"
+                                value={staff.salary_payment}
+                                onChange={handleChange}
+                                fullWidth
+                            />
                         </Grid>
                         <Grid item xs={12}>
                             <Button type="submit" variant="contained" color="primary">
