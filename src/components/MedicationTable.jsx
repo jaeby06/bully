@@ -28,8 +28,8 @@ function MedicationTable() {
   };
 
   return (
-    <Container maxWidth='false' style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      <h1>Medications</h1>
+    <Container >
+      <h1 style={{ height: '15vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Medications</h1>
       <Table>
         <TableHead>
           <TableRow>

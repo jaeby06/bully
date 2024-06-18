@@ -24,7 +24,7 @@ export default function ButtonAppBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="absolute" open={open} sx={{ height: 90 }}>
+      <AppBar position="absolute" open={open} >
         <Toolbar sx={{ pr: '40px', display: 'flex', justifyContent: 'pace-between' }}>
           <IconButton
             size="large"

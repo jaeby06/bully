@@ -29,8 +29,8 @@ function InPatientsTable() {
   };
 
   return (
-    <Container maxWidth='false' style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      <h1>In Patients</h1>
+    <Container maxWidth='false' >
+      <h1 style={{ height: '15vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>In Patients</h1>
       <Table>
         <TableHead>
           <TableRow>
@@ -66,15 +66,6 @@ function InPatientsTable() {
           ))}
         </TableBody>
       </Table>
-      <Grid container justifyContent="center" sx={{ mt: 2 }}>
-        <Grid item>
-          <Link to='/inpatients'>
-            <Button variant="contained" color="primary" type="submit">
-              New In Patient
-            </Button>
-          </Link>
-        </Grid>
-      </Grid>
     </Container>
   );
 }
