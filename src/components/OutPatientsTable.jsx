@@ -28,8 +28,8 @@ function OutPatientsTable() {
   };
 
   return (
-    <Container maxWidth='false' style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      <h1>Out Patients</h1>
+    <Container maxWidth='false' >
+      <h1 style={{ height: '15vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Out Patients</h1>
       <Table>
         <TableHead>
           <TableRow>

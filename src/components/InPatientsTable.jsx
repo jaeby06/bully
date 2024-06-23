@@ -2,9 +2,13 @@ import { Grid, Container, Table, TableHead, TableRow, TableCell, TableBody, Butt
 import { useEffect, useState } from "react";
 import supabase from "../Client";
 import { Link } from "react-router-dom";
+import UpdateModal from '../components/Updatemodal';
 
 function InPatientsTable() {
   const [inPatients, setInPatients] = useState([]);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false); // Add this line
+  const [updatedInPatient, setUpdatedInPatient] = useState(null); // Add this line
+
 
   useEffect(() => {
     fetchInPatients();
@@ -18,6 +22,23 @@ function InPatientsTable() {
   const handleDelete = async (id) => {
     try {
       const { error } = await supabase.from("in_patients").delete().eq("in_patient_number", id);
+      if (error) {
+        console.error(error);
+      } else {
+        fetchInPatients(); // fetch in patients again to update the table
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleUpdate = async (id, actualDateLeftWard) => {
+    try {
+      const { error } = await supabase
+        .from("in_patients")
+        .update({ actual_date_left_ward: actualDateLeftWard })
+        .eq("in_patient_number", id);
+
       if (error) {
         console.error(error);
       } else {
@@ -58,9 +79,23 @@ function InPatientsTable() {
               <TableCell>{inPatient.date_expected_to_leave_ward}</TableCell>
               <TableCell>{inPatient.actual_date_left_ward}</TableCell>
               <TableCell>
+                <Button variant="contained" color="primary" onClick={() => {
+                  setIsUpdateModalOpen(true);
+                  setUpdatedInPatient(inPatient);
+                }}>
+                  Update
+                </Button>
                 <Button variant="contained" color="error" onClick={() => handleDelete(inPatient.in_patient_number)}>
                   Delete
                 </Button>
+                {isUpdateModalOpen && updatedInPatient === inPatient && (
+                  <UpdateModal
+                    open={isUpdateModalOpen}
+                    onClose={() => setIsUpdateModalOpen(false)}
+                    inPatient={inPatient}
+                    handleUpdate={handleUpdate} // Add this line
+                  />
+                )}
               </TableCell>
             </TableRow>
           ))}
