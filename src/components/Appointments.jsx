@@ -80,6 +80,7 @@ function Appointments() {
                     value={appointment.date_and_time}
                     onChange={handleChange}
                     fullWidth
+                    type="date"
                   />
                 </Grid>
                 <Grid item xs={6}>

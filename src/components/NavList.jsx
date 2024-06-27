@@ -17,6 +17,11 @@ export const mainLists = (
         </Link>
         </ListItem>
         <ListItem button>
+        <Link to='/patients'>
+            <ListItemText primary="New Patient" />
+        </Link>
+        </ListItem>
+        <ListItem button>
         <Link to='/inpatients'>
             <ListItemText primary="New In Patient" />
         </Link>

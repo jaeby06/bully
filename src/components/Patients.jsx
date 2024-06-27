@@ -15,7 +15,7 @@ function Patients() {
         sex: "",
         marital_status: "",
         date_registered: "",
-        nok_id: "",
+        nok_lname: "",
         doctor_id: "",
         clinic_id: "",
     });
@@ -54,7 +54,7 @@ function Patients() {
                     sex: "",
                     marital_status: "",
                     date_registered: "",
-                    nok_id: "",
+                    nok_lname: "",
                     doctor_id: "",
                     clinic_id: "",
                 });
@@ -127,6 +127,7 @@ function Patients() {
                                 value={patient.date_of_birth}
                                 onChange={handleChange}
                                 fullWidth
+                                type="date"
                             />
                         </Grid>
                         <Grid item xs={6}>
@@ -154,13 +155,14 @@ function Patients() {
                                 value={patient.date_registered}
                                 onChange={handleChange}
                                 fullWidth
+                                type="date"
                             />
                         </Grid>
                         <Grid item xs={6}>
                             <TextField
-                                label="NOK ID"
-                                name="nok_id"
-                                value={patient.nok_id}
+                                label="Next of kin Last Name"
+                                name="nok_lname"
+                                value={patient.nok_lname}
                                 onChange={handleChange}
                                 fullWidth
                             />

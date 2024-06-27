@@ -12,7 +12,6 @@ function Nok() {
     relationship: "",
     nok_tnum: "",
     address: "",
-    patient_number: "",
   });
 
   useEffect(() => {
@@ -62,11 +61,20 @@ function Nok() {
         <h2>New Next of Kin</h2>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2}>
+          <Grid item xs={6}>
+              <TextField
+                label="NOK ID"
+                name="nok_id"
+                value={noks.nok_id}
+                onChange={handleChange}
+                fullWidth
+              />
+            </Grid>
             <Grid item xs={6}>
               <TextField
                 label="NOK First Name"
                 name="nok_fname"
-                value={noks.nok_fname} // Use noks instead of nok
+                value={noks.nok_fname}
                 onChange={handleChange}
                 fullWidth
               />

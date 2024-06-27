@@ -94,15 +94,16 @@ export default function Login() {
                 )}
                 <form className={classes.form}>
                     <TextField label='Email' variant="outlined" fullWidth value={email} onChange={handleEmailChange} error={Boolean(emailError)} helperText={emailError} />
-                    <TextField label='Password' variant="outlined" fullWidth value={password} onChange={handlePasswordChange} error={Boolean(passwordError)} helperText={passwordError} />
+                    <TextField label='Password' variant="outlined" fullWidth value={password} onChange={handlePasswordChange} error={Boolean(passwordError)} helperText={passwordError} type="password" />
                     <Button className={classes.submit} variant="contained" color="primary" type="submit" fullWidth onClick={login}>
                         Login
                     </Button>
                 </form>
                 <Grid container justifyContent="center">
                     <Grid item>
+                    Don't have an account?
                         <Link to='/signup' className={classes.link}>
-                            Don't have an account? Sign up
+                             Sign up
                         </Link>
                     </Grid>
                 </Grid>

@@ -118,8 +118,8 @@ export default function Signup() {
         <form className={classes.form}>
           <TextField label='Name' variant="outlined" fullWidth value={name} onChange={handleNameChange} error={Boolean(nameError)} helperText={nameError} />
           <TextField label='Email' variant="outlined" fullWidth value={email} onChange={handleEmailChange} error={Boolean(emailError)} helperText={emailError} />
-          <TextField label='Password' variant="outlined" fullWidth value={password} onChange={handlePasswordChange} error={Boolean(passwordError)} helperText={passwordError} />
-          <TextField label='Confirm Password' variant="outlined" fullWidth value={confirmpassword} onChange={handleConfirmPasswordChange} error={Boolean(confirmpasswordError)} helperText={confirmpasswordError} />
+          <TextField label='Password' variant="outlined" fullWidth value={password} onChange={handlePasswordChange} error={Boolean(passwordError)} helperText={passwordError} type="password"/>
+          <TextField label='Confirm Password' variant="outlined" fullWidth value={confirmpassword} onChange={handleConfirmPasswordChange} error={Boolean(confirmpasswordError)} helperText={confirmpasswordError} type="password" />
             <Button className={classes.submit} variant="contained" color="primary" type="submit" fullWidth onClick={signup}>
               Sign up
             </Button>
@@ -134,8 +134,9 @@ export default function Signup() {
         </form>
         <Grid container justifyContent="center">
           <Grid item>
+            Already have an account? 
             <Link to='/login' className={classes.link}>
-              Already have an account? Sign in
+               Sign in
             </Link>
           </Grid>
         </Grid>
